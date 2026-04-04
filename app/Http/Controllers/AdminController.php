@@ -46,9 +46,14 @@ class AdminController extends Controller
 
     function category()
     {
+        $categories = Category::all();
+        
         if (Session::has('admin')) {
             $admin = Session::get('admin'); // use admin session
-            return view('category', ["name" => $admin->name]);
+           return view('category', [
+        "name" => $admin->name,
+        "categories" => $categories
+    ]);
         } else {
             return redirect('admin-login');
         }
