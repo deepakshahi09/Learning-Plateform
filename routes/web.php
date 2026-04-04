@@ -10,4 +10,8 @@ Route::view('admin-login','admin-login');
 
 Route::post('admin-login',[AdminController::class,'login']);
 
-Route::get('dashboard', [AdminController::class, 'dashboard']);
+Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+Route::get('admin-category',[AdminController::class,'category']);
+
+Route::get('admin-logout',[AdminController::class,'logout']);
