@@ -15,3 +15,5 @@ Route::get('/dashboard', [AdminController::class, 'dashboard']);
 Route::get('admin-category',[AdminController::class,'category']);
 
 Route::get('admin-logout',[AdminController::class,'logout']);
+
+Route::post('add-category',[AdminController::class,'addCategory']);

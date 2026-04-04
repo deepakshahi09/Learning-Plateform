@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -56,5 +57,21 @@ class AdminController extends Controller
         Session::forget('admin');
         return Redirect('admin-login');
     }
+
+
+  function addCategory(Request $request){
+
+    $admin = Session::get('admin');
+
+    $category = new Category();
+    $category->name = $request->category;
+    $category->creator = $admin->name;
+
+    if($category->save()){
+        Session::flash('category', $request->category . " Added");
+    }
+
+    return redirect('admin-category');
+}
 
 }
