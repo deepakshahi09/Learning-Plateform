@@ -108,8 +108,8 @@ function addQuiz(Request $request){
     $categories = Category::get();
 
     if($admin){
-        echo $quizName = $request->quiz;
-        echo $category_id = $request->category_id;
+        $quizName = $request->quiz;
+        $category_id = $request->category_id;
         if($quizName && $category_id && !Session::has('quizDetails')){
             $quiz = new Quiz();
             $quiz->name = $quizName;
@@ -128,33 +128,39 @@ function addQuiz(Request $request){
     
     }
 }
-//     function addMCQs(Request $request){
+function AddMCQs(Request $request){
+    $mcq = new Mcq();
+    $quiz = Session::get('quizDetails');
+    $admin = Session::get('admin');
 
-//     $mcq = new Mcq();
+   $mcq->question = $request->quiz;
+    $mcq->a = $request->a;
+    $mcq->b = $request->b;
+    $mcq->c = $request->c;
+    $mcq->d = $request->d;
+    $mcq->correct_answer = $request->correct_answer;
 
-//     $quiz = Session::get('quizDetails');
-//     $admin = Session::get('admin');
+    $mcq->admin_id = $admin->id;
+    
+    
+    $mcq->quiz_id = session('quizDetails')->id;
+    $mcq->category_id = session('quizDetails')->category_id;
 
-//     $mcq->question = $request->question;
-//     $mcq->a = $request->a;
-//     $mcq->b = $request->b;
-//     $mcq->c = $request->c;
-//     $mcq->d = $request->d;
-//     $mcq->correct_answer = $request->correct_answer;
+    if($mcq->save()){
+        if($request->submit == "add-more"){
+            return redirect(url()->previous());
 
-//     $mcq->admin_id = $admin->id; // FIXED
-//     $mcq->quiz_id = $quiz->id;
-//     $mcq->category_id = $quiz->category_id;
+        }
+        else{
+            Session::forget('quizDetails');
+            return redirect("/admin-category");
+        }
+    }
 
-//     if($mcq->save()){
 
-//         if($request->submit == "add-more"){
-//             return redirect()->back();
-//         } else {
-//             Session::forget('quizDetails');
-//             return redirect('admin-category')->with('success', 'Quiz Created Successfully');
-//         }
-//     }
-// }
+
+
+
+}
 
 }

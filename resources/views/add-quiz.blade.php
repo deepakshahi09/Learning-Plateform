@@ -68,7 +68,8 @@
             <!-- Heading -->
             <h1 class="text-3xl font-bold text-white text-center mb-6">📝 Add MCQ</h1>
 
-            <form action="" method="get" class="space-y-4">
+            <form action="add-mcq" method="post" class="space-y-4">
+                @csrf
 
                 <!-- Question -->
                 <textarea 
@@ -79,26 +80,28 @@
 
                 <!-- Options -->
                 <input type="text" placeholder="Option A" name="a" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
-                <input type="text" placeholder="Option B" name="a" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
-                <input type="text" placeholder="Option C" name="a" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
-                <input type="text" placeholder="Option D" name="a" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                <input type="text" placeholder="Option B" name="b" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                <input type="text" placeholder="Option C" name="c" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                <input type="text" placeholder="Option D" name="d" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
 
                 <!-- Right Answer -->
                 <select 
-                    name="right answer"
+                    name="correct_answer"
                     class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300"
                 >
                     <option>Select right answer</option>
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
                 </select>
 
                 <!-- Buttons -->
                 <div class="flex gap-4">
                     <button 
                         type="submit"
+                        name="submit"
+                        value="add-more"
                         class="w-1/2 bg-purple-500 text-white py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition"
                     >
                         ➕ Add More
@@ -106,6 +109,8 @@
 
                     <button 
                         type="submit"
+                        value="done"
+                        name="submit"
                         class="w-1/2 bg-green-500 text-white py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition"
                     >
                         ✅ Submit
