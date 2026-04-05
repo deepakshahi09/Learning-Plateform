@@ -33,10 +33,11 @@
                 <input 
                     type="text" 
                     name="quiz"
+                    required
                     placeholder="Enter quiz name..."
                     class="w-full px-5 py-3 rounded-xl bg-white/80 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-purple-300 transition"
                 >
-
+                
                 <!-- Category -->
                 <select 
                     name="category_id"
@@ -77,24 +78,54 @@
                     name="quiz"
                     class="w-full px-4 py-3 rounded-xl bg-white/80 focus:outline-none focus:ring-4 focus:ring-purple-300"
                 ></textarea>
+                @error('quiz')
+                    <div class="text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
 
                 <!-- Options -->
                 <input type="text" placeholder="Option A" name="a" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                @error('a')
+                    <div class="text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <input type="text" placeholder="Option B" name="b" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                @error('b')
+                    <div class="text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <input type="text" placeholder="Option C" name="c" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                @error('c')
+                    <div class="text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <input type="text" placeholder="Option D" name="d" class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300">
+                @error('d')
+                    <div class="text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
 
                 <!-- Right Answer -->
                 <select 
                     name="correct_answer"
                     class="w-full px-4 py-3 rounded-xl bg-white/80 focus:ring-4 focus:ring-purple-300"
                 >
-                    <option>Select right answer</option>
+                    <option value="">Select right answer</option>
                     <option value="a">A</option>
                     <option value="b">B</option>
                     <option value="c">C</option>
                     <option value="d">D</option>
                 </select>
+                @error('correct_answer')
+                    <div class="text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
 
                 <!-- Buttons -->
                 <div class="flex gap-4">
@@ -115,6 +146,12 @@
                     >
                         ✅ Submit
                     </button>
+                  <a 
+    href="/end-quiz"
+    class="block w-1/2 mx-auto text-center bg-red-500 text-white py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition"
+>
+    Finish Quiz
+</a>
                 </div>
 
             </form>

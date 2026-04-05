@@ -129,6 +129,14 @@ function addQuiz(Request $request){
     }
 }
 function AddMCQs(Request $request){
+     $request->validate([
+        "quiz" => "required|min:5",
+        "a" => "required",
+        "b" => "required",
+        "c" => "required",
+        "d" => "required", 
+        "correct_answer" => "required"
+    ]);
     $mcq = new Mcq();
     $quiz = Session::get('quizDetails');
     $admin = Session::get('admin');
@@ -156,11 +164,9 @@ function AddMCQs(Request $request){
             return redirect("/admin-category");
         }
     }
-
-
-
-
-
 }
-
+function endQuiz(){
+    Session::forget('quizDetails');
+    return redirect("/admin-category");
+}
 }
