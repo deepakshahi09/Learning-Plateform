@@ -60,11 +60,26 @@
             @else
 
             <!-- Quiz Name -->
-            <div class="text-center mb-4">
-                <span class="text-green-400 font-semibold text-2xl">
-                    {{ session('quizDetails')->name }}
-                </span>
-            </div>
+ <div class="text-center mb-4 p-3 border rounded-lg bg-gray-100">
+
+    <span class="text-green-600 font-semibold text-lg">
+        {{ session('quizDetails')->name }}
+    </span>
+
+    <p class="text-gray-700 font-medium text-base mt-2">
+        Total MCQs Added : {{ $totalMCQs }}
+    </p>
+
+    @if($totalMCQs > 0)
+        <div class="mt-2">
+            <a href="{{ url('show-quiz/'.session('quizDetails')->id) }}"> 
+               
+               Show All Questions
+            </a>
+        </div>
+    @endif
+
+</div>
 
             <!-- Heading -->
             <h1 class="text-3xl font-bold text-white text-center mb-6">📝 Add MCQ</h1>
