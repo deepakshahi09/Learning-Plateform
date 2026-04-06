@@ -177,7 +177,7 @@ function endQuiz(){
     return redirect("/admin-category");
 }
 
-function showQuiz($id){
+function showQuiz($id , $quizName){
 
     if(!Session::has('admin')){
         return redirect('admin-login');
@@ -190,9 +190,28 @@ function showQuiz($id){
     return view('show-quiz', [
         "name" => $admin->name,
         "mcqs" => $mcqs
+        
     ]);
 
 }
+function quizList($id, $category){
+
+    if(!Session::has('admin')){
+        return redirect('admin-login');
+    }
+
+    $admin = Session::get('admin');
+
+    // ✅ data fetch karo
+   $quizData = Quiz::where('category_id', $id)->get();
+
+    return view('quiz-list', [
+        "name" => $admin->name,
+        "quizData" => $quizData,
+        "category" => $category
+    ]);
+}
+
 
 
 }

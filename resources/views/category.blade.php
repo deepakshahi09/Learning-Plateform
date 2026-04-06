@@ -92,9 +92,28 @@
                 <div>{{$category->name}}</div>
                 <div>{{$category->creator}}</div>
 
-                <div>
-                    <a href="category/delete/{{$category->id}}">Delete</a>
-                </div>
+                <li class="flex gap-4 items-center">
+
+    <!-- Delete -->
+    <div>
+        <a href="category/delete/{{$category->id}}" 
+           class="text-red-500 flex items-center gap-1 hover:underline">
+           
+           🗑️ <span>Delete</span>
+        </a>
+    </div>
+
+    <!-- View -->
+    <div>
+        <a href="quiz-list/{{$category->id}}/{{$category->name}}" 
+           class="text-blue-500 flex items-center gap-1 hover:underline">
+           
+           👁️ <span>View</span>
+        </a>
+    </div>
+
+</li>
+                
 
             </div>
             @endforeach

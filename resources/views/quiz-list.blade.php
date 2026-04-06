@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show MCQs</title>
+    <title>Quiz List</title>
 
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,36 +18,45 @@
     <!-- Top Card -->
     <div class="bg-white rounded-xl shadow-lg p-4 text-center mb-6 border">
         <h2 class="text-xl font-semibold text-green-600">
-            All Quiz MCQs
+            Category Name : {{ $category }}
         </h2>
 
-        <p class="text-gray-700 mt-1">
-            Total Questions : {{ count($mcqs) }}
-        </p>
-
-        <a href="/add-quiz" 
+        <a href="/admin-category" 
            class="text-blue-500 text-sm underline mt-2 inline-block">
            ← Go Back
         </a>
     </div>
 
-    <!-- MCQ List -->
+    <!-- Quiz List -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
 
         <!-- Header -->
         <div class="flex bg-gray-200 p-3 font-semibold text-gray-700">
-            <div class="w-1/6">ID</div>
-            <div class="w-3/6">Question</div>
-            <div class="w-2/6">Correct Answer</div>
+            <div class="w-1/4">Quiz ID</div>
+            <div class="w-2/4">Name</div>
+            <div class="w-1/4 text-center">Action</div>
         </div>
 
         <!-- Data -->
-        @foreach($mcqs as $mcq)
-        <div class="flex p-3 border-t hover:bg-gray-100 transition">
-            <div class="w-1/6 text-gray-600">{{ $mcq->id }}</div>
-            <div class="w-3/6 text-gray-800">{{ $mcq->question }}</div>
-
+        @foreach($quizData as $item)
+        <div class="flex p-3 border-t hover:bg-gray-100 transition items-center">
             
+            <div class="w-1/4 text-gray-600">
+                {{ $item->id }}
+            </div>
+
+            <div class="w-2/4 text-gray-800">
+                {{ $item->name }}
+            </div>
+
+            <!-- Action Button -->
+            <div class="w-1/4 text-center">
+                <a href="{{ url('show-quiz/'.$item->id.'/'.urlencode($item->name)) }}" 
+                   class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
+                   View
+                </a>
+            </div>
+
         </div>
         @endforeach
 
