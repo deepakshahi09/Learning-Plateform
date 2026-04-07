@@ -67,7 +67,7 @@
     </span>
 
     <p class="text-gray-700 font-medium text-base mt-2">
-        Total MCQs Added : {{ $totalMCQs }}
+        Total MCQs Added : {{ $totalMCQs}}
     </p>
 
     @if($totalMCQs > 0)

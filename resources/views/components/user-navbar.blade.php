@@ -8,7 +8,7 @@
 
     <!-- Menu -->
     <div class="flex items-center space-x-6">
-        <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/dashboard">
+        <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/">
         Home
       </a>
 

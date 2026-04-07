@@ -50,6 +50,7 @@
     <div class="grid grid-cols-4 font-semibold bg-gray-200 p-3 rounded-xl mb-3 text-center">
         <div>S.No</div>
         <div>Name</div>
+        <div>Quiz Count</div>
         
         <div>Action</div>
     </div>
@@ -60,19 +61,14 @@
 
         <div class="font-medium">{{$key +1}}</div>
         <div>{{$category->name}}</div>
-     
-
+        <div>{{$category->quizzes_count}}</div>
         <!-- Actions -->
         <div class="flex justify-center gap-4">
-
-           
-
             <!-- View -->
-            <a href="quiz-list/{{$category->id}}/{{$category->name}}" 
+            <a href="user-quiz-list/{{$category->id}}/{{$category->name}}" 
                class="text-blue-500 hover:text-blue-700 flex items-center gap-1">
                 👁️ <span>View</span>
             </a>
-
         </div>
 
     </div>
