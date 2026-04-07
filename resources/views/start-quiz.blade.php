@@ -33,10 +33,17 @@
         </h1>
 
         <!-- Button -->
-        <a type="submit" href="/user-signup" 
+         @if(Session::has('user'))
+        <a type="submit" href="" 
+           class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md shadow-md">
+            Start Quiz
+        </a>
+        @else
+        <a type="submit" href="/user-signup-quiz" 
            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md shadow-md">
             Login / SignUp to Start Quiz
         </a>
+        @endif
 
     </div>
 

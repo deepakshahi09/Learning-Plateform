@@ -11,10 +11,22 @@
         <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/">
         Home
       </a>
-
       <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/admin-categories">
         Categories
       </a>
+
+    @if(Session::has('user'))
+       
+
+      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="">
+        Welcome {{ Session::get('user')->name }}
+      </a>
+      
+      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/user-logout">
+        Log Out
+      </a>
+      @else
+       
 
       <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="">
         Login
@@ -23,6 +35,7 @@
       <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/user-signup">
         Signup
       </a>
+      @endif
 
      
 
