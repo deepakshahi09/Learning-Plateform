@@ -31,6 +31,7 @@
         <div class="flex bg-gray-200 p-3 font-semibold text-gray-700">
             <div class="w-1/4">Quiz ID</div>
             <div class="w-2/4">Name</div>
+            <div class="w-2/4">Mcq Count</div>
             <div class="w-1/4 text-center">Action</div>
         </div>
 
@@ -44,6 +45,10 @@
 
             <div class="w-2/4 text-gray-800">
                 {{ $item->name }}
+            </div>
+            
+            <div class="w-2/4 text-gray-800">
+                {{ $item->mcq_count }}
             </div>
 
             <!-- Action Button -->

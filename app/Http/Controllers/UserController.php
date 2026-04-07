@@ -17,7 +17,7 @@ class UserController extends Controller
 
 function userQuizList($id, $category){
 
-   $quizData = Quiz::where('category_id', $id)->get();
+   $quizData = Quiz::withCount('Mcq')->where('category_id', $id)->get();
 
     return view('user-quiz-list', [
         "quizData" => $quizData,

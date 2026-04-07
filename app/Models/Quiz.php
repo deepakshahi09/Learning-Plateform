@@ -11,4 +11,7 @@ class Quiz extends Model
     function category(){
         return $this->BelongsTo(Category::class);
     }
+    function Mcq(){
+        return $this->hasMany(Mcq ::class);
+    }
 }
