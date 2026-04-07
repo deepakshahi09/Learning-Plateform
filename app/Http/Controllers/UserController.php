@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Quiz;
-
+use App\Models\Mcq;
 class UserController extends Controller
 {
     //
@@ -24,5 +24,23 @@ function userQuizList($id, $category){
         "category" => $category
     ]);
 }
+function startQuiz($id,$name){
+
+    $quizCount = Mcq::where('quiz_id',$id)->count();
+    $quizName = $name;
+
+    return view('start-quiz',[
+        'quizName'=>$quizName,
+        'quizCount'=>$quizCount
+    ]);
+}
+function userSignup(Request $request){
+    $validate = $request->validate([
+        'name'=>'required|min:3',
+        'email'=>'required|email',
+        'password'=>'required|min:3 | confirmed',
+    ]);
+}
+
 
 }

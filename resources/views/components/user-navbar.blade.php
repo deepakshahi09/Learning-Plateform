@@ -12,12 +12,16 @@
         Home
       </a>
 
-      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/admin-category">
+      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/admin-categories">
         Categories
       </a>
 
-      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/add-quiz">
+      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="">
         Login
+      </a>
+      
+      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/user-signup">
+        Signup
       </a>
 
      

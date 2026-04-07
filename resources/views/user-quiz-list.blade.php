@@ -48,7 +48,7 @@
 
             <!-- Action Button -->
             <div class="w-1/4 text-center">
-                <a href=""
+                <a href="{{ url('start-quiz/'.$item->id.'/'.$item->name) }}"
                    class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
                    Attempt Quiz
                 </a>
