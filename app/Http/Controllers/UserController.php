@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -72,6 +73,39 @@ function userSignupQuiz(){
     return view('user-signup');
 }
 
+function userLogin(Request $request){
+
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    // ❌ Invalid user
+    if(!$user || !Hash::check($request->password, $user->password)){
+        return back()->with('error', 'Invalid email or password');
+    }
+
+    // ✅ Login success
+    Session::put('user', $user);
+
+    if(Session::has('quiz-url')){
+        $url = Session::get('quiz-url');
+        Session::forget('quiz-url');
+        return redirect($url); // ✅ return added
+    }
+
+    return redirect('/');
+}
+
+function userLoginQuiz(){
+
+    // previous URL store karo
+    Session::put('quiz-url', url()->previous());
+
+    return view('user-login');
+}
 
 
 }

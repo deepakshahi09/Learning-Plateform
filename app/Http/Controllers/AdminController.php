@@ -100,44 +100,52 @@ class AdminController extends Controller
     return redirect('admin-category');
 }
 function addQuiz(Request $request){
-    
+
     if(!Session::has('admin')){
         return redirect('admin-login');
     }
+
     $admin = Session::get('admin');
     $categories = Category::get();
     $totalMCQs = 0;
 
     if($admin){
+
         $quizName = $request->quiz;
         $category_id = $request->category_id;
-        if($quizName && $category_id && !Session::has('quizDetails')){
+
+        // 🔥 FIX: remove old session and always allow new quiz
+        if($quizName && $category_id){
+
+            Session::forget('quizDetails'); // IMPORTANT
+
             $quiz = new Quiz();
             $quiz->name = $quizName;
             $quiz->category_id = $category_id;
+
             if($quiz->save()){
                 Session::put('quizDetails',$quiz);
             }
         }
+
+        // MCQ count
         if(Session::has('quizDetails')){
-        $quiz = Session::get('quizDetails');
-        $totalMCQs = Mcq::where('quiz_id', $quiz->id)->count();
-    }
+            $quiz = Session::get('quizDetails');
+            $totalMCQs = Mcq::where('quiz_id', $quiz->id)->count();
+        }
 
         return view('add-quiz', [
-        "name" => $admin->name,
-        "categories" => $categories,
-        "totalMCQs"=>$totalMCQs
-    ]);}
-
-    else{
-        return redirect('admin-login');
-    
+            "name" => $admin->name,
+            "categories" => $categories,
+            "totalMCQs"=>$totalMCQs
+        ]);
     }
+
+    return redirect('admin-login');
 }
 function AddMCQs(Request $request){
      $request->validate([
-        "quiz" => "required|min:5",
+        "question" => "required|min:5",
         "a" => "required",
         "b" => "required",
         "c" => "required",
@@ -148,7 +156,7 @@ function AddMCQs(Request $request){
     $quiz = Session::get('quizDetails');
     $admin = Session::get('admin');
 
-   $mcq->question = $request->quiz;
+   $mcq->question = $request->question;
     $mcq->a = $request->a;
     $mcq->b = $request->b;
     $mcq->c = $request->c;

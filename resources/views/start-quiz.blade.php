@@ -6,44 +6,58 @@
     <title>Start Quiz</title>
     @vite('resources/css/app.css')
 </head>
-<body>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100">
 
     <!-- Navbar -->
     <x-user-navbar />
 
-    <div class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-5">
+    <div class="flex items-center justify-center min-h-screen px-4">
 
-        <!-- Quiz Name -->
-        <h1 class="text-4xl text-center text-green-800 mb-6 font-bold">
-            {{$quizName}}
-        </h1>
+        <!-- Card -->
+        <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-lg w-full text-center">
 
-        <!-- Quiz Info -->
-        <h2 class="text-lg text-center text-green-800 mb-4 font-semibold">
-            This Quiz contains {{$quizCount}} Questions
-        </h2>
+            <!-- Quiz Name -->
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">
+                {{$quizName}}
+            </h1>
 
-        <p class="text-center text-gray-700 mb-6">
-            No limit to attempt this quiz. Try your best!
-        </p>
+            <!-- Quiz Info -->
+            <h2 class="text-md md:text-lg text-gray-600 mb-3 font-semibold">
+                This Quiz contains {{$quizCount}} Questions
+            </h2>
 
-        <!-- Good Luck -->
-        <h1 class="text-2xl text-center text-green-800 mb-6 font-bold">
-            Good Luck 👍
-        </h1>
+            <p class="text-gray-500 mb-6">
+                No limit to attempt this quiz. Try your best!
+            </p>
 
-        <!-- Button -->
-         @if(Session::has('user'))
-        <a type="submit" href="" 
-           class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md shadow-md">
-            Start Quiz
-        </a>
-        @else
-        <a type="submit" href="/user-signup-quiz" 
-           class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md shadow-md">
-            Login / SignUp to Start Quiz
-        </a>
-        @endif
+            <!-- Good Luck -->
+            <h1 class="text-xl md:text-2xl font-semibold text-green-600 mb-6">
+                Good Luck 👍
+            </h1>
+
+            <!-- Buttons -->
+            <div class="flex flex-col gap-3">
+
+                @if(Session::has('user'))
+                <a href="" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md transition duration-300">
+                    Start Quiz
+                </a>
+                @else
+                <a href="/user-signup-quiz" 
+                   class="bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg shadow-md transition duration-300">
+                    SignUp for Start Quiz
+                </a>
+
+                <a href="/user-login-quiz" 
+                   class="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg shadow-md transition duration-300">
+                    Login for Start Quiz
+                </a>
+                @endif
+
+            </div>
+
+        </div>
 
     </div>
 

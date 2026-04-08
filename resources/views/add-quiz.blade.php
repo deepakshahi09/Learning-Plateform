@@ -26,7 +26,7 @@
             <!-- Heading -->
             <h1 class="text-3xl font-bold text-white text-center mb-6">✨ Add Quiz</h1>
 
-            <form action="add-quiz" method="get" onsubmit="return validateForm()" class="space-y-5">
+            <form action="add-quiz" method="post" onsubmit="return validateForm()" class="space-y-5">
                 @csrf
 
                 <!-- Quiz Name -->
@@ -90,7 +90,7 @@
                 <!-- Question -->
                 <textarea 
                     placeholder="Enter question..."
-                    name="quiz"
+                    name="question"
                     class="w-full px-4 py-3 rounded-xl bg-white/80 focus:outline-none focus:ring-4 focus:ring-purple-300"
                 ></textarea>
                 @error('quiz')

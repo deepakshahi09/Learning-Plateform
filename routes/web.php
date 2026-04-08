@@ -11,7 +11,10 @@ Route::view('user-signup','user-signup');
 Route::post('user-signup',[UserController::class,'userSignup']);
 Route::get('user-logout',[UserController::class,'userLogout']);
 Route::get('user-signup-quiz',[UserController::class,'userSignupQuiz']);
+Route::get('user-login-quiz',[UserController::class,'userLoginQuiz']);
 
+Route::view('user-login','user-login');
+Route::post('user-login',[UserController::class,'userLogin']);
 
 
 Route::view('admin-login','admin-login');
@@ -28,6 +31,7 @@ Route::post('add-category',[AdminController::class,'addCategory']);
 
 Route::get('category/delete/{id}',[AdminController::class,'deleteCategory']);
 
+Route::post('add-quiz', [AdminController::class, 'addQuiz']);
 Route::get('add-quiz', [AdminController::class, 'addQuiz']);
 
 Route::post('add-mcq', [AdminController::class, 'addMCQs']);
