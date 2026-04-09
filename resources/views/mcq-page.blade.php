@@ -42,32 +42,33 @@ Question No. {{ session('currentQuiz')['currentMcq'] }}
             <!-- Form -->
            <form action="{{ url('submit-next/'.$mcqData->id) }}" method="POST">
                 @csrf
+                <input type="hidden" name="id" value="{{$mcqData->id}}">
 
                 <!-- Option A -->
                 <label for="option_1" class="flex border p-3 mt-2 rounded-xl shadow cursor-pointer 
                               hover:bg-blue-100 hover:border-blue-500 transition duration-200">
-                    <input id="option_1" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="A">
+                    <input id="option_1" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="a">
                     <span class="text-green-900 pl-2">{{$mcqData->a}}</span>
                 </label>
 
                 <!-- Option B -->
                 <label for="option_2" class="flex border p-3 mt-2 rounded-xl shadow cursor-pointer 
                               hover:bg-blue-100 hover:border-blue-500 transition duration-200">
-                    <input id="option_2" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="B">
+                    <input id="option_2" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="b">
                     <span class="text-green-900 pl-2">{{$mcqData->b}}</span>
                 </label>
 
                 <!-- Option C -->
                 <label for="option_3" class="flex border p-3 mt-2 rounded-xl shadow cursor-pointer 
                               hover:bg-blue-100 hover:border-blue-500 transition duration-200">
-                    <input id="option_3" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="C">
+                    <input id="option_3" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="c">
                     <span class="text-green-900 pl-2">{{$mcqData->c}}</span>
                 </label>
 
                 <!-- Option D -->
                 <label for="option_4" class="flex border p-3 mt-2 rounded-xl shadow cursor-pointer 
                               hover:bg-blue-100 hover:border-blue-500 transition duration-200">
-                    <input id="option_4" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="D">
+                    <input id="option_4" class="form-radio text-blue-500 cursor-pointer" type="radio" name="option" value="d">
                     <span class="text-green-900 pl-2">{{$mcqData->d}}</span>
                 </label>
 
