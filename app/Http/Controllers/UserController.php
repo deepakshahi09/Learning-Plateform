@@ -174,35 +174,43 @@ public function submitAndNext(Request $request, $id)
         ['id', '>', $id],
         ['quiz_id', '=', $currentQuiz['quizId']]
     ])->first();
-    $mcq_record = new MCQ_Record;
+    $isExist = MCQ_Record::where([
+    ['record_id', '=', $currentQuiz['recordId']],
+    ['mcq_id', '=', $request->id],
+    ])->count();
+    if($isExist < 1){
+        $mcq_record = new MCQ_Record;
     $mcq_record->record_id = $currentQuiz['recordId'];
     $mcq_record->user_id = Session::get('user')->id;
     $mcq_record->mcq_id = $request->id;
     $mcq_record->select_answer = $request->option;
-
     $mcq = MCQ::find($request->id);
+    if (!$mcq) {
+        return "MCQ not found";
+    }
+    $correctAnswer = strtolower(trim($mcq->correct_answer));
+    $userAnswer = strtolower(trim($request->option));
 
-if (!$mcq) {
-    return "MCQ not found";
-}
-
-$correctAnswer = strtolower(trim($mcq->correct_answer));
-$userAnswer = strtolower(trim($request->option));
-
-if ($userAnswer === $correctAnswer) {
-    $mcq_record->is_correct = 1;
-} else {
-    $mcq_record->is_correct = 0;
-}
-
+    if ($userAnswer === $correctAnswer) {
+        $mcq_record->is_correct = 1;
+    } else {
+        $mcq_record->is_correct = 0;
+    }
     if (!$mcq_record->save())
     {
         return "something went wrong";
     }
-
+    }
     // ❗ safety check (last question)
     if (!$mcqData) {
-        return "result page";
+        $resultData = MCQ_Record::WithMCQ()->where('record_id',$currentQuiz['recordId'])->get();
+
+        $correctAnswer = MCQ_Record::where([
+    ['record_id', '=', $currentQuiz['recordId']],
+    ['is_correct', '=', 1],
+      ])->count();
+        
+        return view('quiz-result',['resultData'=>$resultData,'correctAnswer'=>$correctAnswer]);
     }
     // update session
     Session::put('currentQuiz', $currentQuiz);
