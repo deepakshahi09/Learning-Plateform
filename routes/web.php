@@ -12,6 +12,7 @@ Route::post('user-signup',[UserController::class,'userSignup']);
 Route::get('user-logout',[UserController::class,'userLogout']);
 Route::get('user-signup-quiz',[UserController::class,'userSignupQuiz']);
 Route::get('user-login-quiz',[UserController::class,'userLoginQuiz']);
+Route::get('mcq/{id}/{name}',[UserController::class,'mcq']);
 
 Route::view('user-login','user-login');
 Route::post('user-login',[UserController::class,'userLogin']);

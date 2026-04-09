@@ -32,6 +32,10 @@ function userQuizList($id, $category){
 function startQuiz($id,$name){
 
     $quizCount = Mcq::where('quiz_id',$id)->count();
+    $mcqs = Mcq::where('quiz_id',$id)->get();
+   
+    Session::put('firstMCQ',$mcqs[0]);
+
     $quizName = $name;
 
     return view('start-quiz',[
@@ -105,6 +109,9 @@ function userLoginQuiz(){
     Session::put('quiz-url', url()->previous());
 
     return view('user-login');
+}
+function mcq($id,$name){
+    return view('mcq-page');
 }
 
 

@@ -39,10 +39,10 @@
             <div class="flex flex-col gap-3">
 
                 @if(Session::has('user'))
-                <a href="" 
-                   class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md transition duration-300">
-                    Start Quiz
-                </a>
+                <a href="{{ url('mcq/'.session('firstMCQ')->id.'/'.$quizName) }}"
+   class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md transition duration-300">
+    Start Quiz
+</a>
                 @else
                 <a href="/user-signup-quiz" 
                    class="bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg shadow-md transition duration-300">
