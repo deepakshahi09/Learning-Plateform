@@ -110,8 +110,61 @@ function userLoginQuiz(){
 
     return view('user-login');
 }
-function mcq($id,$name){
-    return view('mcq-page');
+
+
+function mcq($id, $name)
+{
+    $currentQuiz = [];
+
+    // safe session check
+    $firstMCQ = Session::get('firstMCQ');
+
+    if (!$firstMCQ) {
+        return redirect('/')->with('error', 'Session expired');
+    }
+
+    // total questions
+    $currentQuiz['totalMcq'] = Mcq::where('quiz_id', $firstMCQ->quiz_id)->count();
+
+    $currentQuiz['currentMcq'] = 1;
+    $currentQuiz['quizName'] = $name;
+    $currentQuiz['quizId'] = $firstMCQ->quiz_id;
+
+    Session::put('currentQuiz', $currentQuiz);
+
+    $mcqData = Mcq::find($id);
+
+    return view('mcq-page', [
+        'quizName' => $name,
+        'mcqData' => $mcqData
+    ]);
+}
+
+public function submitAndNext($id)
+{
+    $currentQuiz = Session::get('currentQuiz');
+
+    // increase question number
+    $currentQuiz['currentMcq'] += 1;
+
+    // get next question
+    $mcqData = Mcq::where([
+        ['id', '>', $id],
+        ['quiz_id', '=', $currentQuiz['quizId']]
+    ])->first();
+
+    // ❗ safety check (last question)
+    if (!$mcqData) {
+        return "result page";
+    }
+
+    // update session
+    Session::put('currentQuiz', $currentQuiz);
+
+    return view('mcq-page', [
+        'quizName' => $currentQuiz['quizName'],
+        'mcqData' => $mcqData
+    ]);
 }
 
 
