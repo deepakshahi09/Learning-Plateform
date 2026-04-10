@@ -178,6 +178,8 @@ public function submitAndNext(Request $request, $id)
     ['record_id', '=', $currentQuiz['recordId']],
     ['mcq_id', '=', $request->id],
     ])->count();
+
+
     if($isExist < 1){
         $mcq_record = new MCQ_Record;
     $mcq_record->record_id = $currentQuiz['recordId'];
@@ -209,7 +211,14 @@ public function submitAndNext(Request $request, $id)
     ['record_id', '=', $currentQuiz['recordId']],
     ['is_correct', '=', 1],
       ])->count();
-        
+
+        $record = Record::find( $currentQuiz['recordId']);
+        if($record){
+            $record->status = 2;
+            $record->update();
+        }
+
+
         return view('quiz-result',['resultData'=>$resultData,'correctAnswer'=>$correctAnswer]);
     }
     // update session
@@ -219,6 +228,10 @@ public function submitAndNext(Request $request, $id)
         'quizName' => $currentQuiz['quizName'],
         'mcqData' => $mcqData
     ]);
+}
+function userDetails(){
+    $quizRecord = Record::withQuiz()->where('user_id',Session::get('user')->id)->get();
+    return view('user-details',['quizRecord'=> $quizRecord]);
 }
 
 
