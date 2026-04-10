@@ -23,11 +23,13 @@
 
     <div class="w-full max-w-md">
         <div class="relative">
+            <form action="search-quiz" method="get">
 
-            <!-- Input -->
+             <!-- Input -->
             <input 
                 class="w-full px-5 py-3 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
                 type="text" 
+                name="search"
                 placeholder="Search quiz..."
             >
 
@@ -37,6 +39,10 @@
                     <path d="M784-120 532-372q-30 26-69 39t-83 13q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-13 83t-39 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                 </svg>
             </button>
+
+            </form>
+
+           
 
         </div>
     </div>

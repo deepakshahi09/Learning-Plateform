@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
+
+
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Quiz;
@@ -11,6 +15,7 @@ use App\Models\Mcq;
 use App\Models\User;
 use App\Models\Record;
 use App\Models\MCQ_Record;
+use App\Mail\VerifyUser;
 
 
 class UserController extends Controller
@@ -59,6 +64,10 @@ public function userSignup(Request $request)
         'email' => $request->email,
         'password' => Hash::make($request->password)
     ]);
+    
+    $link = Crypt::encryptString($user->email); 
+$link = url('verify-user/' . urlencode($link));
+Mail::to($user->email)->send(new VerifyUser($link));
 
     if($user){
         Session::put('user',$user);
@@ -234,5 +243,35 @@ function userDetails(){
     return view('user-details',['quizRecord'=> $quizRecord]);
 }
 
+function searchQuiz(Request $request){
+    $quizData = Quiz::withCount('Mcq')->where('name', 'LIKE', '%' . $request->search . '%')->get();
 
+    return view('quiz-search', ['quizData' => $quizData,'quiz'=>$request->search]);
+}
+
+
+
+public function verifyUser($email)
+{
+    try {
+        // decode first
+        $email = urldecode($email);
+
+        $orgEmail = Crypt::decryptString($email);
+
+        $user = \App\Models\User::where('email', $orgEmail)->first();
+
+        if ($user) {
+            $user->active = 2;
+            $user->save();
+
+            return "Thanks for verified: " . $orgEmail;
+        }
+
+        return "Email not found: " . $orgEmail;
+
+    } catch (\Exception $e) {
+        return "Error: Invalid link";
+    }
+}
 }
