@@ -11,7 +11,7 @@
         <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/">
         Home
       </a>
-      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/admin-categories">
+      <a class="text-gray-600 font-medium hover:text-blue-600 transition duration-300" href="/">
         Categories
       </a>
 
