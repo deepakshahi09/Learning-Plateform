@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
+    <title>User Set Password</title>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 min-h-screen">
@@ -15,30 +15,22 @@
     <div class="bg-white/90 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md border border-white/40">
         
         <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-6">
-             User Login
+             Set New Password
         </h2>
 
-        @error('user')
-            <div class="text-red-500 text-center mb-3 font-medium">
-                {{ $message }}
-            </div>
-        @enderror
 
-        @if(session('error'))
-            <div class="text-red-500 text-center mb-3 font-medium">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        <form action="/user-login" method="POST" class="space-y-5">
+        <form action="/user-set-forgot-password" method="POST" class="space-y-5">
             @csrf
-           
-
+            
+            <!-- Name -->
+            
             <div>
-                <label class="block text-gray-700 mb-1 font-semibold">User Email</label>
+              
                 <input 
                     type="email" 
                     name="email"
+                    value="{{$email}}"
+                    hidden
                     placeholder="Enter Email Id"
                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                 >
@@ -60,23 +52,29 @@
                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                 @enderror
             </div>
-          
+            <div>
+                <label class="block text-gray-700 mb-1 font-semibold">Confirm Password</label>
+                <input 
+                    type="password" 
+                    name="password_confirmation"
+                    placeholder="Confirm password"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                >
+                
+            </div>
 
             <!-- Button -->
             <button 
                 type="submit"
                 class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300"
             >
-                Login
+                Update password
             </button>
-           <a class="font-bold text-green-600 mb-4" href="user-forgot-password">
-            Forgot Password
-        </a>
 
         </form>
 
         <p class="text-center text-gray-500 text-sm mt-6">
-            © 2026 User Panel
+            © 2026 User Set new Password Panel
         </p>
 
     </div>

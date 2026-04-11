@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\Record;
 use App\Models\MCQ_Record;
 use App\Mail\VerifyUser;
+use App\Mail\UserForgotPassword;
 
 
 class UserController extends Controller
@@ -274,4 +275,39 @@ public function verifyUser($email)
         return "Error: Invalid link";
     }
 }
+
+function userForgotPassword(Request $request){
+        $link = Crypt::encryptString($request->email); 
+$link = url('user-forgot-password/' . urlencode($link));
+Mail::to($request->email)->send(new UserForgotPassword($link));
+    return back()->with('success', 'Reset link sent to your email');
+}
+
+
+function userResetForgotPassword($email){
+    $orgEmail = Crypt::decryptString($email);
+    return view('user-set-forgot-password',['email' => $orgEmail]);
+    
+
+}
+
+function userSetForgotPassword(Request $request){
+
+    $request->validate([
+        
+        'email' => 'required|email',
+        'password' => 'required|min:3|confirmed',
+    ]);
+     $user = User::where('email', $request->email)->first();
+     if($user){
+        $user->password = Hash::make($request->password);
+        if($user->save()){
+            return redirect('user-login');
+        }
+        
+     }
+   
+
+}
+
 }
