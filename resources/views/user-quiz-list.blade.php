@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz List</title>
+    <title>Category Name : {{str_replace('-',' ',$category)}}</title>
 
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,7 +18,7 @@
     <!-- Top Card -->
     <div class="bg-white rounded-xl shadow-lg p-4 text-center mb-6 border">
         <h2 class="text-xl font-semibold text-green-600">
-            Category Name : {{ $category }}
+            Category Name : {{str_replace('-',' ',$category)}}
         </h2>
 
         

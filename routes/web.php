@@ -3,11 +3,33 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/',[UserController::class,'welcome']);
 Route::get('user-quiz-list/{id}/{category}', [UserController::class, 'userQuizList']);
 Route::get('start-quiz/{id}/{name}', [UserController::class, 'startQuiz']);
-Route::view('user-signup','user-signup');
+//Route::view('user-signup','user-signup');
+Route::get('user-login', function () {
+    if(session()->has('user')){
+        return redirect('/');
+    }
+    return view('user-login');
+});
+
+Route::get('user-signup', function () {
+    if(session()->has('user')){
+        return redirect('/');
+    }
+    return view('user-signup');
+});
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+
+Route::get('categories-list',[UserController::class,'categories']);
+
+
 Route::post('user-signup',[UserController::class,'userSignup']);
 Route::get('user-logout',[UserController::class,'userLogout']);
 Route::get('user-signup-quiz',[UserController::class,'userSignupQuiz']);
@@ -26,7 +48,7 @@ Route::post('user-set-forgot-password',[UserController::class,'userSetForgotPass
 
 
 
-Route::view('user-login','user-login');
+//Route::view('user-login','user-login');
 Route::post('user-login',[UserController::class,'userLogin']);
 
 
@@ -34,6 +56,7 @@ Route::middleware('CheckUserAuth')->group(function(){
   Route::get('user-details', [UserController::class, 'userDetails']);
   Route::post('submit-next/{id}', [UserController::class, 'submitAndNext']);
   Route::get('mcq/{id}/{name}',[UserController::class,'mcq']);
+  
 
 });
 
@@ -61,9 +84,20 @@ Route::get('show-quiz/{id}/{quizName}', [AdminController::class, 'showQuiz']);
 
 Route::get('quiz-list/{id}/{category}', [AdminController::class, 'quizList']);
 
+Route::get('/messages', [ContactController::class, 'index']);
+Route::delete('/delete-message/{id}', [ContactController::class, 'destroy']);
+
 
 });
 Route::view('admin-login','admin-login');
 
 Route::post('admin-login',[AdminController::class,'login']);
 
+
+
+
+
+// user form submit
+Route::post('/contact', [ContactController::class, 'store']);
+
+// admin messages page

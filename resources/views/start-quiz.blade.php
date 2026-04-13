@@ -40,9 +40,9 @@
 
                 @if(Session::has('user'))
                 <a href="{{ url('mcq/'.session('firstMCQ')->id.'/'.$quizName) }}"
-   class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md transition duration-300">
-    Start Quiz
-</a>
+                   class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md transition duration-300">
+                    Start Quiz
+                </a>
                 @else
                 <a href="/user-signup-quiz" 
                    class="bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg shadow-md transition duration-300">
@@ -60,6 +60,23 @@
         </div>
 
     </div>
+
+    <!-- ✅🔥 SweetAlert Popup -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Success 🎉',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#2563eb'
+            });
+        });
+    </script>
+    @endif
 
 </body>
 </html>

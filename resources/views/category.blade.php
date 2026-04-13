@@ -22,7 +22,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: '{{ session('category') }}',
+                text: "{{ session('category') }}",
                 confirmButtonColor: '#7c3aed'
             });
         </script>

@@ -7,6 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 
+
 <body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center min-h-screen">
 
     <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-sm">

@@ -33,7 +33,6 @@
         <form action="/user-login" method="POST" class="space-y-5">
             @csrf
            
-
             <div>
                 <label class="block text-gray-700 mb-1 font-semibold">User Email</label>
                 <input 
@@ -61,17 +60,16 @@
                 @enderror
             </div>
           
-
             <!-- Button -->
             <button 
                 type="submit"
-                class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300"
-            >
+                class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300">
                 Login
             </button>
-           <a class="font-bold text-green-600 mb-4" href="user-forgot-password">
-            Forgot Password
-        </a>
+
+            <a class="font-bold text-green-600 mb-4" href="user-forgot-password">
+                Forgot Password
+            </a>
 
         </form>
 
@@ -81,6 +79,23 @@
 
     </div>
 </div>
+
+<!-- ✅🔥 SweetAlert Popup -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            title: 'Success 🎉',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#7c3aed'
+        });
+    });
+</script>
+@endif
 
 </body>
 </html>

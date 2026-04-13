@@ -23,11 +23,20 @@ class UserController extends Controller
 {
     //
     function welcome(){
-    $categories = Category::withCount('quizzes')->get();
+    $categories = Category::withCount('quizzes')->orderBy('quizzes_count','desc')->take(6)->get();
+    $quizData = Quiz::withCount('Records')
+                        ->orderBy('records_count','desc')
+                        ->take(6)
+                        ->get();
 
-    return view('welcome',['categories'=>$categories]);
+    return view('welcome',['categories'=>$categories,'quizData'=>$quizData]);
 }
 
+function categories(){
+    $categories = Category::withCount('quizzes')->orderBy('quizzes_count','desc')->paginate(6);
+    return view('categories-list',['categories'=>$categories]);
+
+}
 function userQuizList($id, $category){
 
    $quizData = Quiz::withCount('Mcq')->where('category_id', $id)->get();
@@ -75,14 +84,14 @@ Mail::to($user->email)->send(new VerifyUser($link));
         if(Session::has('quiz-url')){
             $url = Session::get('quiz-url');
             Session::forget('quiz-url');
-            return redirect($url);
+            return redirect($url)->with('success', 'Signup successful! Please check your email and verify your account.');
         }
-        return redirect('/');
+        return redirect('/')->with('success', 'Signup successful! Please check your email and verify your account.');
     }
 }
 function userLogout(){
     Session::forget('user');
-    return redirect('/');
+    return redirect('/')->with('success', 'Logout successful!');
 }
 function userSignupQuiz(){
     Session::put('quiz-url', url()->previous());
@@ -107,12 +116,12 @@ function userLogin(Request $request){
     Session::put('user', $user);
 
     if(Session::has('quiz-url')){
-        $url = Session::get('quiz-url');
-        Session::forget('quiz-url');
-        return redirect($url); // ✅ return added
-    }
+    $url = Session::get('quiz-url');
+    Session::forget('quiz-url');
+    return redirect($url)->with('success', 'Login successful!');
+}
 
-    return redirect('/');
+return redirect('/')->with('success', 'Login successful!');
 }
 
 function userLoginQuiz(){
@@ -255,9 +264,7 @@ function searchQuiz(Request $request){
 public function verifyUser($email)
 {
     try {
-        // decode first
         $email = urldecode($email);
-
         $orgEmail = Crypt::decryptString($email);
 
         $user = \App\Models\User::where('email', $orgEmail)->first();
@@ -266,13 +273,13 @@ public function verifyUser($email)
             $user->active = 2;
             $user->save();
 
-            return "Thanks for verified: " . $orgEmail;
+            return redirect('/')->with('success', 'Email verified successfully!');
         }
 
-        return "Email not found: " . $orgEmail;
+        return redirect('/')->with('error', 'Email not found');
 
     } catch (\Exception $e) {
-        return "Error: Invalid link";
+        return redirect('/')->with('error', 'Invalid verification link');
     }
 }
 
@@ -302,7 +309,8 @@ function userSetForgotPassword(Request $request){
      if($user){
         $user->password = Hash::make($request->password);
         if($user->save()){
-            return redirect('user-login');
+            return redirect('user-login')->with('success', 'Password updated successfully! Now login.');
+        }
         }
         
      }
@@ -310,4 +318,4 @@ function userSetForgotPassword(Request $request){
 
 }
 
-}
+

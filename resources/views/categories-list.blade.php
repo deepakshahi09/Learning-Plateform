@@ -39,7 +39,7 @@
 
     <!-- 🔥 CATEGORY SECTION -->
     <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-        📋 Top Categories
+        📋 ALL Categories
     </h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -64,48 +64,12 @@
         @endforeach
 
     </div>
-
-
-    <!-- 🔥 QUIZ SECTION -->
-    <!-- 🔥 QUIZ SECTION -->
-<h2 class="text-2xl font-bold text-gray-800 mt-14 mb-6 text-center">
-    🚀 Top Quizzes
-</h2>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-
-    @foreach($quizData as $item)
-    <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
-
-        <!-- Quiz Name -->
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">
-            {{ $item->name }}
-        </h3>
-
-        <!-- MCQ Count -->
-        <p class="text-gray-500 mb-4">
-            {{ $item->mcq_count }} Questions
-        </p>
-
-        <!-- Button -->
-        <a href="{{ url('start-quiz/'.$item->id.'/'.$item->name) }}"
-           class="block text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-lg hover:opacity-90">
-            Start Quiz
-        </a>
-
-    </div>
-    @endforeach
-
-</div>
-
-@if(count($quizData) == 0)
-<div class="text-center mt-6 text-gray-500">
-    No quizzes available 😔
-</div>
-@endif
+   <div class="mt-8 flex justify-center">
+        {{ $categories->links() }}
     </div>
 
-</div>
+
+
 
 <x-footer-user />
 

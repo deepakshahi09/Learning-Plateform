@@ -23,6 +23,9 @@
       <a class="text-gray-700 font-semibold bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-blue-50 transition duration-300" href="">
         Welcome {{$name}}
       </a>
+      <a class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition duration-300" href="/messages">
+        User Feedback
+      </a>
 
       <a class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition duration-300" href="admin-logout">
         Log Out
