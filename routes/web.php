@@ -30,6 +30,13 @@ Route::get('/contact', function () {
 Route::get('categories-list',[UserController::class,'categories']);
 
 
+Route::get('certificate',[UserController::class,'certificate']);
+
+Route::get('/downlode-certificate',[UserController::class,'downloadcertificate']);
+
+
+
+
 Route::post('user-signup',[UserController::class,'userSignup']);
 Route::get('user-logout',[UserController::class,'userLogout']);
 Route::get('user-signup-quiz',[UserController::class,'userSignupQuiz']);

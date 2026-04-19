@@ -20,6 +20,13 @@
     <h1 class="text-4xl font-bold text-gray-800 mb-4">
         🎯 Quiz Result
     </h1>
+  @if(count($resultData) > 0 && ($correctAnswer * 100 / count($resultData)) > 70)
+   <a href="/certificate"
+   class="mt-4 inline-block bg-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-700 hover:shadow-lg transition duration-300">
+   🎓 View & Download Certificate
+</a>
+<br>
+@endif
 
     <!-- Score Card -->
     <div class="bg-white shadow-xl rounded-2xl p-6 mb-8 text-center w-80">

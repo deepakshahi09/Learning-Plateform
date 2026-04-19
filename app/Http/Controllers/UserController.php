@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -314,7 +316,36 @@ function userSetForgotPassword(Request $request){
         }
         
      }
-   
+
+   public function certificate(){
+
+    $quiz = Session::get('currentQuiz');
+    $user = Session::get('user');
+
+    $quizName = $quiz ? str_replace('-', ' ', $quiz['quizName']) : 'Quiz';
+    $name = $user ? $user['name'] : 'User';
+
+    return view('certificate', [
+        'name' => $name,
+        'quiz' => $quizName
+    ]);
+}
+
+public function downloadCertificate(){
+
+   $quiz = Session::get('currentQuiz');
+    $user = Session::get('user');
+
+    $quizName = $quiz ? str_replace('-', ' ', $quiz['quizName']) : 'Quiz';
+    $name = $user ? $user['name'] : 'User';
+
+    $pdf = Pdf::loadView('certificate-pdf', [
+    'name' => $name,
+    'quiz' => $quizName
+]);
+
+    return $pdf->download('certificate.pdf');
+}
 
 }
 

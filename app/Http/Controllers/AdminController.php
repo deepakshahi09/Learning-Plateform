@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Category;
 use App\Models\Quiz;
 use App\Models\Mcq;
+use App\Models\User;
 
 
 class AdminController extends Controller
@@ -40,7 +41,8 @@ class AdminController extends Controller
 
         if(Session::has('admin')){
             $admin = Session::get('admin');
-            return view('admin', ["name"=>$admin->name]);
+            $users = User::orderby('id','desc')->paginate(6);
+            return view('admin', ["name"=>$admin->name, 'users'=>$users]);
         }
         else{
            // return redirect('admin-login');
@@ -62,9 +64,9 @@ class AdminController extends Controller
         }
     }
     function logout(){
-        Session::forget('admin');
-        return Redirect('admin-login');
-    }
+    Session::forget('admin');
+    return redirect('/')->with('success', 'Logout successful 👋');
+}
 
 
   function addCategory(Request $request){
